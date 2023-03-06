@@ -16,7 +16,6 @@
 
 package com.github.bhlangonijr.chesslib.game;
 
-import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,6 @@ public class Event {
     private int rounds;
     private TimeControl timeControl;
     private TimeControl timeControl2;
-    private PgnHolder pgnHolder;
 
     /**
      * Returns the ID of the event.
@@ -228,22 +226,5 @@ public class Event {
         return round;
     }
 
-    /**
-     * Returns the PGN holder used to access the PGN file used for the event.
-     *
-     * @return the PGN holder reference
-     */
-    public PgnHolder getPgnHolder() {
-        return pgnHolder;
-    }
-
-    /**
-     * Sets the PGN holder used to access the PGN file used for the event.
-     *
-     * @param pgnHolder the PGN holder to use
-     */
-    public void setPgnHolder(PgnHolder pgnHolder) {
-        this.pgnHolder = pgnHolder;
-    }
 
 }

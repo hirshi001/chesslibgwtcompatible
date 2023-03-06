@@ -16,12 +16,7 @@
 
 package com.github.bhlangonijr.chesslib.move;
 
-import com.github.bhlangonijr.chesslib.BoardEvent;
-import com.github.bhlangonijr.chesslib.BoardEventType;
-import com.github.bhlangonijr.chesslib.Piece;
-import com.github.bhlangonijr.chesslib.Side;
-import com.github.bhlangonijr.chesslib.Square;
-import org.apache.commons.lang3.StringUtils;
+import com.github.bhlangonijr.chesslib.*;
 
 /**
  * The definition of a chess move, that is, a piece movement from its starting square (the origin square) to a
@@ -144,7 +139,7 @@ public class Move implements BoardEvent {
      */
     @Override
     public String toString() {
-        String promo = StringUtils.EMPTY;
+        String promo = "";
         if (!Piece.NONE.equals(promotion)) {
             promo = promotion.getFenSymbol();
         }

@@ -16,25 +16,19 @@
 
 package com.github.bhlangonijr.chesslib;
 
-import static com.github.bhlangonijr.chesslib.Bitboard.extractLsb;
-import static com.github.bhlangonijr.chesslib.Constants.emptyMove;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
-
 import com.github.bhlangonijr.chesslib.game.GameContext;
 import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveGenerator;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.util.XorShiftRandom;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
+import static com.github.bhlangonijr.chesslib.Bitboard.extractLsb;
+import static com.github.bhlangonijr.chesslib.Constants.emptyMove;
 
 /**
  * The definition of a chessboard position and its status. It exposes methods to manipulate the board, evolve the
@@ -810,7 +804,7 @@ public class Board implements Cloneable, BoardEvent {
             castleRight.put(Side.BLACK, CastleRight.NONE);
         }
 
-        String[] flags = state.split(StringUtils.SPACE);
+        String[] flags = state.split(" ");
 
         if (flags.length >= 3) {
             String s = flags[2].toUpperCase().trim();
@@ -930,7 +924,7 @@ public class Board implements Cloneable, BoardEvent {
             fen.append(" b");
         }
 
-        String rights = StringUtils.EMPTY;
+        String rights = "";
         if (CastleRight.KING_AND_QUEEN_SIDE.
                 equals(castleRight.get(Side.WHITE))) {
             rights += "KQ";
@@ -953,10 +947,10 @@ public class Board implements Cloneable, BoardEvent {
             rights += "q";
         }
 
-        if (StringUtils.isEmpty(rights)) {
+        if (rights.length()==0) {
             fen.append(" -");
         } else {
-            fen.append(StringUtils.SPACE + rights);
+            fen.append(" " + rights);
         }
 
         if (Square.NONE.equals(getEnPassant())
@@ -964,14 +958,14 @@ public class Board implements Cloneable, BoardEvent {
                 && !pawnCanBeCapturedEnPassant())) {
             fen.append(" -");
         } else {
-            fen.append(StringUtils.SPACE);
+            fen.append(" ");
             fen.append(getEnPassant().toString().toLowerCase());
         }
 
         if (includeCounters) {
-            fen.append(StringUtils.SPACE);
+            fen.append(" ");
             fen.append(getHalfMoveCounter());
-            fen.append(StringUtils.SPACE);
+            fen.append(" ");
             fen.append(getMoveCounter());
         }
 
@@ -1525,8 +1519,8 @@ public class Board implements Cloneable, BoardEvent {
      * @see Board#getZobristKey()
      */
     public String getPositionId() {
-        String[] parts = this.getFen(false).split(StringUtils.SPACE);
-        return parts[0] + StringUtils.SPACE + parts[1] + StringUtils.SPACE + parts[2] +
+        String[] parts = this.getFen(false).split(" ");
+        return parts[0] + " " + parts[1] + " " + parts[2] +
                 (this.getEnPassantTarget() != Square.NONE ? parts[3] : "-");
     }
 

@@ -26,7 +26,6 @@ import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import com.github.bhlangonijr.chesslib.move.MoveException;
 import com.github.bhlangonijr.chesslib.move.MoveList;
-import com.github.bhlangonijr.chesslib.pgn.PgnException;
 import com.github.bhlangonijr.chesslib.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -855,11 +854,11 @@ public class Game {
                         getVariations().put(last.index, var);
                     } catch (Exception e) {
                         if (last != null) {
-                            throw new PgnException("Error while reading variation: " +
+                            throw new Exception("Error while reading variation: " +
                                     getMovesAt(currentLine.toString(), last.index) + " - " +
                                     last.text.toString(), e);
                         } else {
-                            throw new PgnException("Error while reading variation: ", e);
+                            throw new Exception("Error while reading variation: ", e);
                         }
                     }
                 }
