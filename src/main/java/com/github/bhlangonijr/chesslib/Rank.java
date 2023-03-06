@@ -16,7 +16,6 @@
 
 package com.github.bhlangonijr.chesslib;
 
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * The ranks in a board. A <i>rank</i> is a raw in the chessboard, and it is identified as a number from 1 to 8.
@@ -60,7 +59,7 @@ public enum Rank {
     /**
      * Special value that represents no rank in particular.
      */
-    NONE(StringUtils.EMPTY);
+    NONE("");
 
     public static final Rank[] allRanks = values();
 

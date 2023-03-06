@@ -16,7 +16,6 @@
 
 package com.github.bhlangonijr.chesslib.util;
 
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
@@ -49,7 +48,7 @@ public class StringUtil {
     public static String afterSequence(final String str, final String seq, int size) {
         int idx = str.indexOf(seq) + seq.length();
         if (idx == 0) {
-            return StringUtils.EMPTY;
+            return "";
         }
         return str.substring(idx, idx + size);
     }
@@ -64,7 +63,7 @@ public class StringUtil {
     public static String afterSequence(final String str, final String seq) {
         int idx = str.indexOf(seq) + seq.length();
         if (idx == 0) {
-            return StringUtils.EMPTY;
+            return "";
         }
         return str.substring(idx);
     }
@@ -184,6 +183,10 @@ public class StringUtil {
 
             return true;
         }
+    }
+
+    public static boolean isEmpty(CharSequence cs){
+        return cs == null || cs.length() == 0;
     }
 
 

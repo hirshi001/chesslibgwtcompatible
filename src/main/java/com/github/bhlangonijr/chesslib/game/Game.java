@@ -27,7 +27,6 @@ import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import com.github.bhlangonijr.chesslib.move.MoveException;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.util.StringUtil;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * A chess game, as defined by the specifications of the Portable Game Notation (PGN) format.
@@ -81,7 +80,7 @@ public class Game {
     private static String getMovesAt(String moves, int index) {
         StringBuilder b = new StringBuilder();
         int count = 0;
-        for (String m : moves.split(StringUtils.SPACE)) {
+        for (String m : moves.split(" ")) {
             count++;
             if (count >= index) {
                 break;
@@ -305,7 +304,8 @@ public class Game {
      */
     public MoveList getHalfMoves() {
         if (halfMoves == null) {
-            if (StringUtils.isNotBlank(getFen())) {
+
+            if (!StringUtil.isBlank(getFen())) {
                 halfMoves = new MoveList(getFen());
             } else {
                 halfMoves = new MoveList();
@@ -397,16 +397,16 @@ public class Game {
         } else {
             sb.append(makeProp("TimeControl", "-"));
         }
-        if (StringUtils.isNotEmpty(getAnnotator())) {
+        if (!StringUtil.isEmpty(getAnnotator())) {
             sb.append(makeProp("Annotator", getAnnotator()));
         }
-        if (StringUtils.isNotEmpty(getFen())) {
+        if (!StringUtil.isEmpty(getFen())) {
             sb.append(makeProp("FEN", getFen()));
         }
-        if (StringUtils.isNotEmpty(getEco())) {
+        if (!StringUtil.isEmpty(getEco())) {
             sb.append(makeProp("ECO", getEco()));
         }
-        if (StringUtils.isNotEmpty(getOpening())) {
+        if (!StringUtil.isEmpty(getOpening())) {
             sb.append(makeProp("Opening", getOpening()));
         }
         if (getWhitePlayer().getElo() > 0) {
@@ -749,7 +749,7 @@ public class Game {
 
         String text = moveText.toString();
 
-        if (StringUtils.isNotBlank(getFen())) {
+        if (!StringUtil.isBlank(getFen())) {
             setHalfMoves(new MoveList(getFen()));
         } else {
             setHalfMoves(new MoveList());
@@ -766,8 +766,8 @@ public class Game {
         boolean onCommentBlock = false;
         boolean onVariationBlock = false;
         boolean onLineCommentBlock = false;
-        for (String token : text.split(StringUtils.SPACE)) {
-            if (StringUtils.isBlank(token)) {
+        for (String token : text.split(" ")) {
+            if (StringUtil.isBlank(token)) {
                 continue;
             }
             if (!(onLineCommentBlock || onCommentBlock) &&
@@ -868,7 +868,7 @@ public class Game {
             if (onCommentBlock || onLineCommentBlock) {
                 if (comment != null) {
                     comment.append(token);
-                    comment.append(StringUtils.SPACE);
+                    comment.append(" ");
                 }
                 continue;
             }
@@ -876,7 +876,7 @@ public class Game {
             if (onVariationBlock) {
                 if (variation != null) {
                     variation.getLast().text.append(token);
-                    variation.getLast().text.append(StringUtils.SPACE);
+                    variation.getLast().text.append(" ");
                     variation.getLast().size++;
                     variantIndex++;
                 }
@@ -885,7 +885,7 @@ public class Game {
             variantIndex++;
             halfMove++;
             moves.append(token);
-            moves.append(StringUtils.SPACE);
+            moves.append(" ");
         }
 
         StringUtil.replaceAll(moves, "\n", " ");
